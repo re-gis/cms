@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+    <title>Project List</title>
+  </head>
+  <body>
+    <div class="container mt-5" style="width: 1200px">
+      <h2 class="mb-4">Projects</h2>
+      <form action="{% url 'logout' %}" method="post" class="mb-4">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Logout</button>
+      </form>
+
+      <table class="table table-bordered">
+        <thead class="thead-light">
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for project in projects %}
+          <tr>
+            <td><strong>{{ project.title }}</strong></td>
+            <td>{{ project.description }}</td>
+            <td
+              style="
+                display: flex;
+                width: 100%;
+                flex-direction: column;
+                gap: 5px;
+                justify-content: center;
+                align-items: center;
+              "
+            >
+              <div
+                style="
+                  display: flex;
+                  gap: 5px;
+                  justify-content: center;
+                  align-items: center;
+                  width: 100%;
+                "
+              >
+                <a
+                  href="{% url 'update_project' project.pk %}"
+                  class="btn btn-warning btn-sm"
+                  >Edit</a
+                >
+                <a
+                  href="{% url 'delete_project' project.pk %}"
+                  class="btn btn-danger btn-sm"
+                  >Delete</a
+                >
+              </div>
+              <a
+                href="{% url 'assign_volunteer' project.pk %}"
+                class="btn btn-info btn-sm"
+                style="width: 100%; padding: 0 7px"
+                >Assign Volunteer</a
+              >
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="3" class="text-center">No projects available.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a href="{% url 'create_project' %}" class="btn btn-primary mb-3"
+       style="width: 100%;" >Create New Project</a
+      >
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
+</html>

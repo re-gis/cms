@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Assign Volunteer</title>
+</head>
+<body>
+    <div class="container mt-5" style="max-width: 600px;">
+        <h2 class="mb-4"><h2>Assign Volunteer to Project</h2> {{ project.title }}</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="volunteer">Select Volunteer:</label>
+                <select name="volunteer" id="volunteer" class="form-control" required>
+                    {% for volunteer in volunteers %}
+                        {% if volunteer.username != "admin"%}
+                            <option value="{{ volunteer.id }}">{{ volunteer.username }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Assign</button>
+        </form>
+        <a href="{% url 'project_list' %}" class="btn btn-secondary mt-2" style="width: 100%;">Back to Projects</a>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
