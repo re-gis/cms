@@ -66,7 +66,7 @@ def assign_volunteer(request, project_id):
         subject = f'You Have Been Assigned to {project.title}'
         message = f'Hello {volunteer.username},\n\nYou have been assigned to the project "{project.title}". Thank you for your participation!\n\nBest regards,\nD Regis'
         send_email_notification(volunteer.email, subject, message)
-        messages.success(request, f"{volunteer.username} has been assigned to {project.title}.")
+        messages.success(request, f"{volunteer.username} has been assigned to {project.title} and email sent.")
         return redirect('project_list')
     volunteers = CustomUser.objects.filter(is_active=True)
     return render(request, 'projects/assign_volunteer.html', {'project': project, 'volunteers': volunteers})
