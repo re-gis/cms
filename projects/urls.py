@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import (
     project_list, create_project, update_project, delete_project,
-    assign_volunteer, remove_volunteer,assigned_projects
+    assign_volunteer, remove_volunteer, assigned_projects
 )
 
 urlpatterns = [
